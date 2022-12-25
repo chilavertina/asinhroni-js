@@ -11,4 +11,9 @@ request.send();
 
 request.addEventListener('load', function () {
   console.log(this.responseText); //  this se odnosi na request
+  // rezultat koda iznad se dobija u JSON-u
+
+  // pretvaranje JSON teksta u object
+  const data = JSON.parse(this.responseText);
+  console.log(data);
 });
