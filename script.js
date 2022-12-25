@@ -14,6 +14,6 @@ request.addEventListener('load', function () {
   // rezultat koda iznad se dobija u JSON-u
 
   // pretvaranje JSON teksta u object
-  const data = JSON.parse(this.responseText);
+  const [data] = JSON.parse(this.responseText); // [data] destruktuiranje niza sa objektom u object
   console.log(data);
 });
