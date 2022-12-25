@@ -41,6 +41,8 @@ getCountryData('serbia');
 getCountryData('russia');
 */
 
+// CHAINING FUNCTIONS AJAX (CALLBACK HELL)
+/*
 const renderCountry = function (data, className = '') {
   const hmtl = ` <article class="${className}">
     <img class="country__img" src="${data.flag}" />
@@ -95,3 +97,15 @@ const getCountryAndNeighbour = function (country) {
 };
 
 getCountryAndNeighbour('serbia');
+*/
+
+// PROMISES
+
+// STARI nacin AJAX poziva
+// const request = new XMLHttpRequest();
+//   request.open('GET', `https://restcountries.com/v2/name/serbia`);
+//   request.send();
+
+// NOVI nacin (promises)
+const request = fetch('https://restcountries.com/v2/name/serbia');
+console.log(request);
