@@ -5,19 +5,20 @@ const countriesContainer = document.querySelector('.countries');
 
 ///////////////////////////////////////
 
-const request = new XMLHttpRequest();
-request.open('GET', 'https://restcountries.com/v2/name/serbia');
-request.send();
+const getCountryData = function (country) {
+  const request = new XMLHttpRequest();
+  request.open('GET', `https://restcountries.com/v2/name/${country}`);
+  request.send();
 
-request.addEventListener('load', function () {
-  console.log(this.responseText); //  this se odnosi na request
-  // rezultat koda iznad se dobija u JSON-u
+  request.addEventListener('load', function () {
+    console.log(this.responseText); //  this se odnosi na request
+    // rezultat koda iznad se dobija u JSON-u
 
-  // pretvaranje JSON teksta u object
-  const [data] = JSON.parse(this.responseText); // [data] destruktuiranje niza sa objektom u object
-  console.log(data);
+    // pretvaranje JSON teksta u object
+    const [data] = JSON.parse(this.responseText); // [data] destruktuiranje niza sa objektom u object
+    console.log(data);
 
-  const hmtl = ` <article class="country">
+    const hmtl = ` <article class="country">
   <img class="country__img" src="${data.flag}" />
   <div class="country__data">
     <h3 class="country__name">${data.name}</h3>
@@ -30,6 +31,11 @@ request.addEventListener('load', function () {
   </div>
 </article>
   `;
-  countriesContainer.insertAdjacentHTML('beforeend', hmtl);
-  countriesContainer.style.opacity = 1;
-});
+    countriesContainer.insertAdjacentHTML('beforeend', hmtl);
+    countriesContainer.style.opacity = 1;
+  });
+};
+
+getCountryData('portugal');
+getCountryData('serbia');
+getCountryData('russia');
