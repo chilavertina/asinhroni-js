@@ -129,18 +129,24 @@ const renderCountry = function (data, className = '') {
 const request = fetch('https://restcountries.com/v2/name/serbia');
 console.log(request);
 
+// const getCountryData = function (country) {
+//   fetch(`https://restcountries.com/v2/name/${country}`).then(function (
+//     // fetch funkcija return promise, a then metoda hendluje taj promise
+//     response
+//   ) {
+//     console.log(response);
+//     response.json().then(function (data) {
+//       // da bismo zatim procitali podatak iz response-a koristimo json koji ce takodje vratiti promise
+//       console.log(data); // opet na novi promise pozivamo then metodu i dobijamo pristup podatku
+//       renderCountry(data[0]);
+//     });
+//   });
+// };
+
 const getCountryData = function (country) {
-  fetch(`https://restcountries.com/v2/name/${country}`).then(function (
-    // fetch funkcija return promise, a then metoda hendluje taj promise
-    response
-  ) {
-    console.log(response);
-    response.json().then(function (data) {
-      // da bismo zatim procitali podatak iz response-a koristimo json koji ce takodje vratiti promise
-      console.log(data); // opet na novi promise pozivamo then metodu i dobijamo pristup podatku
-      renderCountry(data[0]);
-    });
-  });
+  fetch(`https://restcountries.com/v2/name/${country}`)
+    .then(response => response.json())
+    .then(data => renderCountry(data[0]));
 };
 
 getCountryData('serbia');
