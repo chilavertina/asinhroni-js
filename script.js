@@ -99,7 +99,7 @@ const getCountryAndNeighbour = function (country) {
 getCountryAndNeighbour('serbia');
 */
 
-// PROMISES
+// PROMISES --- kontejner buduce vrednosti tj. response-a koji dolazi iz AJAX poziva
 
 // STARI nacin AJAX poziva
 // const request = new XMLHttpRequest();
@@ -109,3 +109,9 @@ getCountryAndNeighbour('serbia');
 // NOVI nacin (promises)
 const request = fetch('https://restcountries.com/v2/name/serbia');
 console.log(request);
+
+const getCountryData = function (country) {
+  fetch(`https://restcountries.com/v2/name/${country}`).then(function (
+    response
+  ) {});
+};
