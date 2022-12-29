@@ -146,10 +146,13 @@ console.log(request);
 const getCountryData = function (country) {
   // Country 1
   fetch(`https://restcountries.com/v2/name/${country}`)
-    .then(response => response.json())
+    .then(
+      response => response.json(),
+      err => alert(err)
+    )
     .then(data => {
       renderCountry(data[0]);
-      const neighbour = data[0].borders[0];
+      const neighbour = data[0].borders[1];
 
       if (!neighbour) return;
 
@@ -160,4 +163,6 @@ const getCountryData = function (country) {
     .then(data => renderCountry(data, 'neighbour'));
 };
 
-getCountryData('serbia');
+btn.addEventListener('click', function () {
+  getCountryData('serbia');
+});
