@@ -147,8 +147,8 @@ const getCountryData = function (country) {
   // Country 1
   fetch(`https://restcountries.com/v2/name/${country}`)
     .then(
-      response => response.json(),
-      err => alert(err)
+      response => response.json()
+      // err => alert(err)
     )
     .then(data => {
       renderCountry(data[0]);
@@ -159,8 +159,12 @@ const getCountryData = function (country) {
       // Country 2
       return fetch(`https://restcountries.com/v2/alpha/${neighbour}`); // drugi AJAX call
     })
-    .then(response => response.json())
-    .then(data => renderCountry(data, 'neighbour'));
+    .then(
+      response => response.json()
+      // err => alert(err)
+    )
+    .then(data => renderCountry(data, 'neighbour'))
+    .catch(err => alert(err));
 };
 
 btn.addEventListener('click', function () {
