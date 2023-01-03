@@ -9,8 +9,8 @@ const renderCountry = function (data, className = '') {
     <div class="country__data">
       <h3 class="country__name">${data.name}</h3>
       <h4 class="country__region">${data.region}</h4>
-      <p class="country__row"><span>👫</span>${+(
-        data.population / 1000000
+      <p class="country__row"><span>👫</span>${(
+        +data.population / 1000000
       ).toFixed(1)}</p>
       <p class="country__row"><span>🗣️</span>${data.languages[0].name}</p>
       <p class="country__row"><span>💰</span>${data.currencies[0].name}</p>
@@ -131,8 +131,8 @@ getCountryAndNeighbour('serbia');
 
 // NOVI nacin (promises)
 
-const request = fetch('https://restcountries.com/v2/name/serbia');
-console.log(request);
+// const request = fetch('https://restcountries.com/v2/name/serbia');
+// console.log(request);
 
 // const getCountryData = function (country) {
 //   fetch(`https://restcountries.com/v2/name/${country}`).then(function (
@@ -193,20 +193,21 @@ const getCountryData = function (country) {
   getJSON(`https://restcountries.com/v2/name/${country}`, 'Country not found')
     .then(data => {
       renderCountry(data[0]);
-      const neighbour = data[0].borders[1];
+      const neighbour = data[0].borders[0];
 
-      if (!neighbour) return;
+      if (!neighbour) throw new Error('No neighbour found!');
 
       // Country 2
       return getJSON(
         `https://restcountries.com/v2/alpha/${neighbour}`,
         'Country not found'
-      ); // drugi AJAX call
+      );
     })
+
     .then(data => renderCountry(data, 'neighbour'))
     .catch(err => {
       console.error(`${err} 💥💥💥`);
-      renderError(`Something went wrong 💥💥💥 ${err.message}. Try again!`);
+      renderError(`Something went wrong 💥💥 ${err.message}. Try again!`);
     })
     .finally(() => {
       countriesContainer.style.opacity = 1;
@@ -214,7 +215,7 @@ const getCountryData = function (country) {
 };
 
 btn.addEventListener('click', function () {
-  getCountryData('serbia');
+  getCountryData('portugal');
 });
 
-getCountryData('fddffdff');
+getCountryData('australia');
