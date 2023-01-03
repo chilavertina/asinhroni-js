@@ -227,4 +227,10 @@ getCountryData('australia');
 console.log('Test start'); // 1.
 setTimeout(() => console.log('0 sec timer'), 0); // 4.
 Promise.resolve('Resolve promise 1').then(res => console.log(res)); // 3.
+
+// Resolve promise 2 ce se izvrsiti pre setTimeout timer-a
+Promise.resolve('Resolve promise 2').then(res => {
+  for (let i = 0; i < 1000000000; i++) {}
+  console.log(res);
+});
 console.log('Test end'); // 2.
