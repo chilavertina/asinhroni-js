@@ -147,7 +147,7 @@ getCountryAndNeighbour('serbia');
 //     });
 //   });
 // };
-
+/*
 const getJSON = function (url, errorMsg = 'Something went wrong') {
   return fetch(url).then(response => {
     if (!response.ok) throw new Error(`${errorMsg} (${response.status})`);
@@ -155,7 +155,7 @@ const getJSON = function (url, errorMsg = 'Something went wrong') {
     return response.json();
   });
 };
-
+*/
 // const getCountryData = function (country) {
 //   // Country 1
 //   fetch(`https://restcountries.com/v2/name/${country}`)
@@ -187,7 +187,7 @@ const getJSON = function (url, errorMsg = 'Something went wrong') {
 //       countriesContainer.style.opacity = 1;
 //     });
 // };
-
+/*
 const getCountryData = function (country) {
   // Country 1
   getJSON(`https://restcountries.com/v2/name/${country}`, 'Country not found')
@@ -219,3 +219,12 @@ btn.addEventListener('click', function () {
 });
 
 getCountryData('australia');
+*/
+
+// EVENT LOOP
+
+// redosled izvrsavanja koda
+console.log('Test start'); // 1.
+setTimeout(() => console.log('0 sec timer'), 0); // 4.
+Promise.resolve('Resolve promise 1').then(res => console.log(res)); // 3.
+console.log('Test end'); // 2.
