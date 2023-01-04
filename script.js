@@ -220,7 +220,7 @@ btn.addEventListener('click', function () {
 
 getCountryData('australia');
 */
-
+/*
 // EVENT LOOP
 
 // redosled izvrsavanja koda
@@ -234,3 +234,15 @@ Promise.resolve('Resolve promise 2').then(res => {
   console.log(res);
 });
 console.log('Test end'); // 2.
+*/
+// BUILDING PROMISE
+
+const lotteryPromise = new Promise(function (resolve, reject) {
+  if (Math.random() >= 0.5) {
+    resolve('You WIN 💰');
+  } else {
+    reject('You lost your money 💩');
+  }
+});
+
+lotteryPromise.then(res => console.log(res)).catch(err => console.error(err));
