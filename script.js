@@ -236,7 +236,7 @@ Promise.resolve('Resolve promise 2').then(res => {
 console.log('Test end'); // 2.
 */
 // BUILDING PROMISE
-
+/*
 const lotteryPromise = new Promise(function (resolve, reject) {
   console.log('Lottery draw is happening');
   setTimeout(function () {
@@ -263,7 +263,7 @@ wait(2)
     return wait(1);
   })
   .then(() => console.log('I waited for 1 second more'));
-
+*/
 /*
 setTimeout(() => {
   console.log('1 second passed');
@@ -278,7 +278,7 @@ setTimeout(() => {
   }, 1000);
 }, 1000);
 */
-
+/*
 // resenje primera iznad na laksi nacin
 wait(1)
   .then(() => {
@@ -297,3 +297,18 @@ wait(1)
 
 Promise.resolve('abc').then(x => console.log(x));
 Promise.reject(new Error('Problem!')).catch(x => console.error(x));
+*/
+
+// promisifying the geolocation API
+
+const getPosition = function () {
+  return new Promise(function (resolve, reject) {
+    // navigator.geolocation.getCurrentPosition(
+    //   position => resolve(position),
+    //   err => reject(err)
+    // );
+    navigator.geolocation.getCurrentPosition(resolve, reject);
+  });
+};
+
+getPosition().then(pos => console.log(pos));
