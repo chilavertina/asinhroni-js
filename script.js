@@ -294,3 +294,6 @@ wait(1)
     return wait(1);
   })
   .then(() => console.log('4 seconds passed'));
+
+Promise.resolve('abc').then(x => console.log(x));
+Promise.reject(new Error('Problem!')).catch(x => console.error(x));
