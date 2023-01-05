@@ -18,7 +18,7 @@ const renderCountry = function (data, className = '') {
   </article>
     `;
   countriesContainer.insertAdjacentHTML('beforeend', hmtl);
-  // countriesContainer.style.opacity = 1;
+  countriesContainer.style.opacity = 1;
 };
 
 const renderError = function (msg) {
@@ -345,14 +345,36 @@ btn.addEventListener('click', whereAmI);
 */
 
 // Promises sa async i await
-const whereAmI = async function (country) {
-  const response = await fetch(`https://restcountries.com/v2/name/${country}`);
-  console.log(response);
 
-  // fetch(`https://restcountries.com/v2/name/${country}`).then(response => //ovo je stari nacin upotrebe promise u odnosu na ovaj iznad
-  //   console.log(response)
-  // );
+const getPosition = function () {
+  return new Promise(function (resolve, reject) {
+    navigator.geolocation.getCurrentPosition(resolve, reject);
+  });
 };
 
-whereAmI('serbia');
+const whereAmI = async function () {
+  // Geolocation
+  const position = await getPosition();
+  const { latitude: lat, longitude: lng } = position.coords;
+
+  // Reverse geocoding
+  const responseGeo = await fetch(
+    `https://geocode.xyz/${lat},${lng}?geoit=json&auth=49829124970640839439x87507`
+  );
+  const dataGeo = await responseGeo.json();
+
+  // Country data
+  // fetch(`https://restcountries.com/v2/name/${country}`).then(response => //ovo je stari nacin upotrebe promise u odnosu na ovaj ispod
+  //   console.log(response)
+  // );
+
+  const response = await fetch(
+    `https://restcountries.com/v2/name/${dataGeo.country}`
+  );
+  const data = await response.json();
+  console.log(data);
+  renderCountry(data[0]);
+};
+
+whereAmI();
 console.log('FIRST');
