@@ -405,7 +405,7 @@ console.log('1: Will get location');
   console.log('3: Finished getting location');
 })();
 */
-
+/*
 // Paralelno pokretanje Promise-a
 
 const getJSON = function (url, errorMsg = 'Something went wrong') {
@@ -443,3 +443,33 @@ const get3Countries = async function (c1, c2, c3) {
 };
 
 get3Countries('serbia', 'croatia', 'bulgaria');
+*/
+
+const getJSON = function (url, errorMsg = 'Something went wrong') {
+  return fetch(url).then(response => {
+    if (!response.ok) throw new Error(`${errorMsg} (${response.status})`);
+
+    return response.json();
+  });
+};
+//Promise.race
+(async function () {
+  const response = await Promise.race([
+    getJSON(`https://restcountries.com/v2/name/italy`),
+    getJSON(`https://restcountries.com/v2/name/egypt`),
+    getJSON(`https://restcountries.com/v2/name/mexico`),
+  ]);
+  console.log(response[0]);
+})();
+
+const timeout = function (sec) {
+  return new Promise(function (_, reject) {
+    setTimeout(function () {
+      reject(new Error('Request took too long!'));
+    }, sec * 1000);
+  });
+};
+
+Promise.race([getJSON(`https://restcountries.com/v2/name/serbia`), timeout(5)])
+  .then(response => console.log(response[0]))
+  .catch(err => console.error(err));
