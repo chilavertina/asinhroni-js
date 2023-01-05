@@ -343,3 +343,16 @@ const whereAmI = function () {
 
 btn.addEventListener('click', whereAmI);
 */
+
+// Promises sa async i await
+const whereAmI = async function (country) {
+  const response = await fetch(`https://restcountries.com/v2/name/${country}`);
+  console.log(response);
+
+  // fetch(`https://restcountries.com/v2/name/${country}`).then(response => //ovo je stari nacin upotrebe promise u odnosu na ovaj iznad
+  //   console.log(response)
+  // );
+};
+
+whereAmI('serbia');
+console.log('FIRST');
