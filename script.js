@@ -23,7 +23,7 @@ const renderCountry = function (data, className = '') {
 
 const renderError = function (msg) {
   countriesContainer.insertAdjacentText('beforeend', msg);
-  // countriesContainer.style.opacity = 1;
+  countriesContainer.style.opacity = 1;
 };
 
 ///////////////////////////////////////
@@ -353,28 +353,40 @@ const getPosition = function () {
 };
 
 const whereAmI = async function () {
-  // Geolocation
-  const position = await getPosition();
-  const { latitude: lat, longitude: lng } = position.coords;
+  try {
+    // Geolocation
+    const position = await getPosition();
+    const { latitude: lat, longitude: lng } = position.coords;
 
-  // Reverse geocoding
-  const responseGeo = await fetch(
-    `https://geocode.xyz/${lat},${lng}?geoit=json&auth=49829124970640839439x87507`
-  );
-  const dataGeo = await responseGeo.json();
+    // Reverse geocoding
+    const responseGeo = await fetch(
+      `https://geocode.xyz/${lat},${lng}?geoit=json&auth=49829124970640839439x87507`
+    );
+    if (!responseGeo.ok) throw new Error('Problem getting location data');
 
-  // Country data
-  // fetch(`https://restcountries.com/v2/name/${country}`).then(response => //ovo je stari nacin upotrebe promise u odnosu na ovaj ispod
-  //   console.log(response)
-  // );
+    const dataGeo = await responseGeo.json();
 
-  const response = await fetch(
-    `https://restcountries.com/v2/name/${dataGeo.country}`
-  );
-  const data = await response.json();
-  console.log(data);
-  renderCountry(data[0]);
+    // Country data
+    // fetch(`https://restcountries.com/v2/name/${country}`).then(response => //ovo je stari nacin upotrebe promise u odnosu na ovaj ispod
+    //   console.log(response)
+    // );
+
+    const response = await fetch(
+      `https://restcountries.com/v2/name/${dataGeo.country}`
+    );
+    if (!response.ok) throw new Error('Problem getting country');
+
+    const data = await response.json();
+    console.log(data);
+    renderCountry(data[0]);
+  } catch (err) {
+    console.error(`${err} 💥`);
+    renderError(`💥 ${err.message}`);
+  }
 };
 
+whereAmI();
+whereAmI();
+whereAmI();
 whereAmI();
 console.log('FIRST');
