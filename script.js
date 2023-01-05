@@ -377,16 +377,15 @@ const whereAmI = async function () {
     if (!response.ok) throw new Error('Problem getting country');
 
     const data = await response.json();
-    console.log(data);
     renderCountry(data[0]);
+
+    return `You are in ${dataGeo.city}, ${dataGeo.country}`;
   } catch (err) {
     console.error(`${err} 💥`);
     renderError(`💥 ${err.message}`);
   }
 };
 
-whereAmI();
-whereAmI();
-whereAmI();
-whereAmI();
-console.log('FIRST');
+console.log('1: Will get locationa');
+whereAmI().then(city => console.log(city));
+console.log('3: Finished getting location');
